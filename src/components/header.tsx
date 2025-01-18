@@ -5,7 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import useTheme from "next-theme";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { dark, neobrutalism } from "@clerk/themes";
 
 export default function Header() {
