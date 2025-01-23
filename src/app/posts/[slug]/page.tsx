@@ -2,6 +2,7 @@ import CallToAction from "@/components/call-to-action";
 import { Button } from "flowbite-react";
 
 import Link from "next/link";
+import { getImageS3 } from "@/lib/aws-s3";
 
 export default async function PostDetail({
   params,
@@ -20,7 +21,14 @@ export default async function PostDetail({
         cache: "no-store",
       }
     );
-    post = await result.json();
+    const data = await result.json();
+    console.log(data);
+    post = data.posts[0];
+    if(post.image) {
+      post.image = await getImageS3(post.image);
+    } else {
+      post.image ='https://placehold.co/600x400';
+    }
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +52,7 @@ export default async function PostDetail({
         href={`/search?category=${post && post.category}`}
         className="self-center mt-5"
       >
-        <Button color="gray" pill size="xs">
+        <Button color="blue" pill size="xs">
           {post && post.category}
         </Button>
       </Link>

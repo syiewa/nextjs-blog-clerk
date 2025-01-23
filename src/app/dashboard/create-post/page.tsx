@@ -132,6 +132,7 @@ export default function CreatePostPage() {
             <FileInput
               accept="image/*"
               onChange={(e) => setFile(e.target.files?.[0] || null)}
+              required
             />
             <Button
               type="button"
