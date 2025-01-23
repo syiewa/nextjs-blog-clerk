@@ -22,7 +22,6 @@ const postSchema = new mongoose.Schema(
     image: {
       type: String,
       required: false,
-      default: "https://placehold.co/600x400",
     },
     category: {
       type: String,
