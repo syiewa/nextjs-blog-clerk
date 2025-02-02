@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { getImageS3 } from "@/lib/aws-s3";
 
