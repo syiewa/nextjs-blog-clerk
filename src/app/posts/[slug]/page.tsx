@@ -3,6 +3,7 @@ import { Button } from "flowbite-react";
 
 import Link from "next/link";
 import { getImageS3 } from "@/lib/aws-s3";
+import RecentPosts from "@/components/recent-post";
 
 export default async function PostDetail({
   params,
@@ -74,6 +75,7 @@ export default async function PostDetail({
       <div className="max-w-4xl mx-auto w-full">
         <CallToAction />
       </div>
+      <RecentPosts limit={3} />
     </main>
   );
 }
