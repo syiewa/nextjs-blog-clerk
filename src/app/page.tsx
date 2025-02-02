@@ -37,7 +37,7 @@ export default async function Home() {
           View All Post
         </Link>
       </div>
-      <div className="p-3 bg-amber-100 dark:bg-slate-700">
+      <div className="p-3 bg-amber-100 dark:bg-slate-700 w-5/6">
         <CallToAction />
       </div>
       <div className="p-3 flex flex-col gap-8 py-7">
