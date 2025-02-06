@@ -1,8 +1,8 @@
-// Remove 'use client' directive since this will be a Server Component
 import { Suspense } from "react";
-import SearchForm from "@/components/search-from"; // We'll create this Client Component
+import SearchForm from "@/components/search-from";
 import PostCard from "@/components/post-card";
 import PaginationControls from "@/components/pagination-controls";
+
 // Types
 interface Post {
   _id: string;
@@ -15,23 +15,28 @@ interface Post {
   slug: string;
 }
 
-interface SearchPageProps {
-  searchParams: {
-    searchTerm?: string;
-    sort?: string;
-    category?: string;
-    page?: string;
-  };
+type SearchParams = {
+  searchTerm?: string;
+  sort?: string;
+  category?: string;
+  page?: string;
+}
+
+// Correct Next.js page props type for App Router
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<SearchParams>;
 }
 
 // Server-side data fetching function
-async function getPosts(searchParams: SearchPageProps["searchParams"]) {
+async function getPosts(searchParams: SearchParams) {
   const {
     searchTerm = "",
     sort = "desc",
     category = "",
     page = "1",
-  } = await searchParams;
+  } = searchParams;
+  
   const limit = 9;
   const startIndex = (parseInt(page) - 1) * limit;
 
@@ -56,15 +61,15 @@ async function getPosts(searchParams: SearchPageProps["searchParams"]) {
   return res.json();
 }
 
-// Main Server Component
-export default async function SearchPage({ searchParams }: SearchPageProps) {
-  searchParams = await searchParams;
+// Main Server Component with correct Next.js page props type
+export default async function SearchPage(props: Props) {
+  const searchParams = await props.searchParams;
   const { posts } = await getPosts(searchParams);
   const currentPage = parseInt(searchParams.page || "1");
   const hasMore = posts.length === 9;
 
   return (
-    <div className="flex flex-col md:flex-row ">
+    <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
         <SearchForm
           initialSearchTerm={searchParams.searchTerm || ""}
