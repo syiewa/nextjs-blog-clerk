@@ -77,6 +77,7 @@ export default function Header() {
         <SignedIn>
           <UserButton
             appearance={{ baseTheme: theme === "dark" ? dark : neobrutalism }}
+            userProfileUrl="/dashboard?tab=profile"
           />
         </SignedIn>
 
